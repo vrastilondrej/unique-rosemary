@@ -2,5 +2,6 @@
 title: Projects
 slug: projects
 ---
+Nothing to see here... Move along! guutzutzutz
 
-Nothing to see here... Move along!
+![](/images/jajaj.jpg)
