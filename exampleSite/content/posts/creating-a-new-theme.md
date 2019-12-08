@@ -1,12 +1,13 @@
-+++ 
-date = "2014-09-28"
-title = "Creating a New Theme"
-slug = "creating-a-new-theme" 
-tags = []
-categories = []
-series = ["Theme", "Hugo"]
-+++
-
+---
+title: Creating a New Theme
+date: '2014-09-28'
+slug: creating-a-new-theme
+tags: []
+categories: []
+series:
+  - Theme
+  - Hugo
+---
 ## Introduction
 
 This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I'll explain how Hugo uses templates and how you can organize your templates to create a theme. I won't cover using CSS to style your theme.
@@ -43,7 +44,6 @@ bah and humbug
 $
 ```
 
-
 ## Some Definitions
 
 There are a few concepts that you need to understand before creating a theme.
@@ -52,15 +52,17 @@ There are a few concepts that you need to understand before creating a theme.
 
 Skins are the files responsible for the look and feel of your site. It’s the CSS that controls colors and fonts, it’s the Javascript that determines actions and reactions. It’s also the rules that Hugo uses to transform your content into the HTML that the site will serve to visitors.
 
-You have two ways to create a skin. The simplest way is to create it in the ```layouts/``` directory. If you do, then you don’t have to worry about configuring Hugo to recognize it. The first place that Hugo will look for rules and files is in the ```layouts/``` directory so it will always find the skin.
+You have two ways to create a skin. The simplest way is to create it in the `layouts/` directory. If you do, then you don’t have to worry about configuring Hugo to recognize it. The first place that Hugo will look for rules and files is in the `layouts/` directory so it will always find the skin.
 
-Your second choice is to create it in a sub-directory of the ```themes/``` directory. If you do, then you must always tell Hugo where to search for the skin. It’s extra work, though, so why bother with it?
+Your second choice is to create it in a sub-directory of the `themes/` directory. If you do, then you must always tell Hugo where to search for the skin. It’s extra work, though, so why bother with it?
 
-The difference between creating a skin in ```layouts/``` and creating it in ```themes/``` is very subtle. A skin in ```layouts/``` can’t be customized without updating the templates and static files that it is built from. A skin created in ```themes/```, on the other hand, can be and that makes it easier for other people to use it.
+The difference between creating a skin in `layouts/` and creating it in `themes/` is very subtle. A skin in `layouts/` can’t be customized without updating the templates and static files that it is built from. A skin created in `themes/`, on the other hand, can be and that makes it easier for other people to use it.
 
-The rest of this tutorial will call a skin created in the ```themes/``` directory a theme.
+The rest of this tutorial will call a skin created in the `themes/` directory a theme.
 
-Note that you can use this tutorial to create a skin in the ```layouts/``` directory if you wish to. The main difference will be that you won’t need to update the site’s configuration file to use a theme.
+Note that you can use this tutorial to create a skin in the `layouts/` directory if you wish to. The main difference will be that you won’t need to update the site’s configuration file to use a theme.
+
+![m,.](/images/N90.jpg "m,.,")
 
 ### The Home Page
 
@@ -70,7 +72,7 @@ The home page, or landing page, is the first page that many visitors to a site s
 
 When Hugo runs, it looks for a configuration file that contains settings that override default values for the entire site. The file can use TOML, YAML, or JSON. I prefer to use TOML for my configuration files. If you prefer to use JSON or YAML, you’ll need to translate my examples. You’ll also need to change the name of the file since Hugo uses the extension to determine how to process it.
 
-Hugo translates Markdown files into HTML. By default, Hugo expects to find Markdown files in your ```content/``` directory and template files in your ```themes/``` directory. It will create HTML files in your ```public/``` directory. You can change this by specifying alternate locations in the configuration file.
+Hugo translates Markdown files into HTML. By default, Hugo expects to find Markdown files in your `content/` directory and template files in your `themes/` directory. It will create HTML files in your `public/` directory. You can change this by specifying alternate locations in the configuration file.
 
 ### Content
 
@@ -182,8 +184,6 @@ $
 
 Hugo created two XML files, which is standard, but there are no HTML files.
 
-
-
 ### Test the New Site
 
 Verify that you can run the built-in web server. It will dramatically shorten your development cycle if you do. Start it by running the "server" command. If it is successful, you will see output similar to the following:
@@ -236,7 +236,6 @@ Hugo doesn't ship with a default theme. There are a few available (I counted a d
 We're going to create a new theme called "zafta." Since the goal of this tutorial is to show you how to fill out the files to pull in your content, the theme will not contain any CSS. In other words, ugly but functional.
 
 All themes have opinions on content and layout. For example, Zafta uses "post" over "blog". Strong opinions make for simpler templates but differing opinions make it tougher to use themes. When you build a theme, consider using the terms that other themes do.
-
 
 ### Create a Skeleton
 
@@ -296,8 +295,6 @@ $ find themes/zafta -name '*.html' | xargs ls -l
 -rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/partials/header.html
 $
 ```
-
-
 
 ### Update the Configuration File to Use the Theme
 
@@ -413,7 +410,7 @@ Check the main Hugo site for information on using Git with Hugo.
 
 ### Purge the public/ Directory
 
-When generating the site, Hugo will create new files and update existing ones in the ```public/``` directory. It will not delete files that are no longer used. For example, files that were created in the wrong directory or with the wrong title will remain. If you leave them, you might get confused by them later. I recommend cleaning out your site prior to generating it.
+When generating the site, Hugo will create new files and update existing ones in the `public/` directory. It will not delete files that are no longer used. For example, files that were created in the wrong directory or with the wrong title will remain. If you leave them, you might get confused by them later. I recommend cleaning out your site prior to generating it.
 
 Note: If you're building on an SSD, you should ignore this. Churning on a SSD can be costly.
 
@@ -440,7 +437,6 @@ $ hugo server --watch --verbose
 ```
 
 Here's sample output showing Hugo detecting a change to the template for the home page. Once generated, the web browser automatically reloaded the page. I've said this before, it's amazing.
-
 
 ```
 $ rm -rf public
@@ -1028,10 +1024,13 @@ The most noticeable difference between a template call and a partials call is th
 ```
 {{ template "theme/partials/header.html" . }}
 ```
+
 versus
+
 ```
 {{ partial "header.html" . }}
 ```
+
 Both pass in the context.
 
 Let's change the home page template to use these new partials.
@@ -1135,7 +1134,6 @@ $ vi themes/zafta/layouts/post/single.html
 
 {{ partial "footer.html" . }}
 :wq
-
 ```
 
 Note that we removed the date logic from the default template and put it in the post template. Generate the web site and verify the results. Posts have dates and the about page doesn't.
